@@ -1,12 +1,12 @@
 class UsersController < ApplicationController
-    # get all users /users
+    # Get all users /users
 
     def index
         users = User.all
         render json: users
     end
 
-    # get a particular user /user/:id
+    # Get a particular user /user/:id
 
     def show
             user = User.find(user_params[:id])
@@ -15,6 +15,12 @@ class UsersController < ApplicationController
         else
             render json: {error: "User not found" }, status: :not_found
         end
+    end
+
+    # create a user Post /user
+    def create
+        user = User.create(user_params)
+        render json: user, status: :created
     end
 
     private

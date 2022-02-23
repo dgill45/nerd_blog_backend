@@ -34,7 +34,20 @@ class UsersController < ApplicationController
         end
     end
 
+    #destroy a user 
+
+    def destroy
+        user = User.find(user_params[:id])
+        if user
+            user.destroy
+            head :no_content
+        else
+            render json: {error: "User not found" }, status: :not_found
+        end
+    end
+
     private
+    
     def user_params
         params.permit(:first_name, :last_name, :user_name, :email, :id)
     end

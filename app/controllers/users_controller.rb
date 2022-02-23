@@ -6,7 +6,7 @@ class UsersController < ApplicationController
         render json: users
     end
 
-    # Get a particular user /user/:id
+    # Get a particular user /users/:id
 
     def show
             user = User.find(user_params[:id])
@@ -17,10 +17,21 @@ class UsersController < ApplicationController
         end
     end
 
-    # create a user Post /user
+    # create a user Post /users
     def create
         user = User.create(user_params)
         render json: user, status: :created
+    end
+
+    #edit a user Patch /users/:id
+    def update
+        user = User.find(user_params[:id])
+        if user
+            user.update(user_params)
+            render json: user
+        else 
+            render json: {error: "User not found" }, status: :not_found
+        end
     end
 
     private
